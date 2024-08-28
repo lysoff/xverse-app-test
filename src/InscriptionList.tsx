@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import { useInfiniteWalletOrdinals } from "./api/api";
 import { Link } from "react-router-dom";
+import arrow from "./assets/arrow.png";
 
 interface InscriptionListProps {
   walletAddress: string;
@@ -16,10 +17,8 @@ export default function InscriptionList({
     return null;
   }
 
-  console.log({ data });
-
   return (
-    <div className="w-full my-5 p-[16px]">
+    <div className="w-full my-5 py-[16px]">
       <div>Results</div>
       <div>
         {data.pages.map((page, index) => (
@@ -30,11 +29,20 @@ export default function InscriptionList({
               if (!inscriptionId) return null;
 
               return (
-                <div className="py-[24px]" key={inscriptionId}>
+                <div
+                  className="py-[24px] hover:bg-gray-500"
+                  key={inscriptionId}
+                >
                   <Link to={`/${walletAddress}/${inscriptionId}`}>
-                    <div className="w-full flex flex-row ">
-                      <span>Inscription {inscriptionId.slice(0, 8)}</span>
-                      <img src="./assets/arrow.png" alt="" />
+                    <div className="w-full flex flex-row px-[16px]">
+                      <div className="flex-1 flex-row items-center font-semibold">
+                        Inscription {inscriptionId.slice(0, 8)}
+                      </div>
+                      <img
+                        className="flex h-[16px] flex-row items-center justify-center"
+                        src={arrow}
+                        alt=""
+                      />
                     </div>
                   </Link>
                 </div>

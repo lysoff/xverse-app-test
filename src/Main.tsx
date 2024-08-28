@@ -17,15 +17,15 @@ export default function Main() {
 
   return (
     <div className="flex flex-col items-center">
-      <div className="w-[375px] border border-green-400">
+      <div className="w-[375px]">
         <div className="flex flex-col items-center h-[88px] pt-[54px] w-full">
           Ordinal Inscription Lookup
         </div>
         <div className="px-[16px] py-[10px] w-full">
-          <div>Owner Bitcoin Address:</div>
-          <div>
+          <div className="font-bold">Owner Bitcoin Address:</div>
+          <div className="my-2">
             <input
-              className="bg-gray-500 w-full"
+              className="bg-gray-500 w-full p-[10px]"
               value={form.address}
               onChange={handleChange}
             />
