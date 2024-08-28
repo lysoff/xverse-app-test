@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 
 const API_URL = "https://api-3.xverse.app/v1";
 
@@ -19,13 +19,11 @@ export interface WalletOrdinalsResponse {
           offset: number;
         }
       ];
-      inscriptions: [
-        {
-          id: string;
-          offset: number;
-          content_type: string;
-        }
-      ];
+      inscriptions: {
+        id: string;
+        offset: number;
+        content_type: string;
+      }[];
     }
   ];
 }
@@ -65,6 +63,17 @@ export const useWalletOrdinals = (walletAddress: string, offset: number = 0) =>
   useQuery<WalletOrdinalsResponse>({
     queryKey: ["wallet", { walletAddress, offset }],
     queryFn: () => fetchWalletOrdinals(walletAddress, offset),
+  });
+
+export const useInfiniteWalletOrdinals = (walletAddress: string) =>
+  useInfiniteQuery<WalletOrdinalsResponse>({
+    queryKey: ["wallet", { walletAddress }],
+    queryFn: async ({ pageParam }) =>
+      fetchWalletOrdinals(walletAddress, Number(pageParam)),
+    initialPageParam: 0,
+    getNextPageParam: (lastPage) =>
+      lastPage.offset + 30 >= lastPage.total ? null : lastPage.offset + 30,
+    refetchOnWindowFocus: false,
   });
 
 const fetchInscription = async (
