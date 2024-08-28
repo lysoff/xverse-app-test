@@ -1,6 +1,7 @@
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 
 const API_URL = "https://api-3.xverse.app/v1";
+const ORD_API_URL = "https://ord.xverse.app";
 
 export interface WalletOrdinalsResponse {
   limit: number;
@@ -50,6 +51,7 @@ export interface InscriptionResponse {
   tx_id: string;
   timestamp: number;
   value: number;
+  content?: string;
 }
 
 const fetchWalletOrdinals = async (walletAddress: string, offset: number) => {
@@ -76,6 +78,9 @@ export const useInfiniteWalletOrdinals = (walletAddress: string) =>
     refetchOnWindowFocus: false,
   });
 
+export const getContentUrl = (inscriptionId: string) =>
+  ORD_API_URL + "/content/" + inscriptionId;
+
 const fetchInscription = async (
   walletAddress: string,
   inscriptionId: string
@@ -84,8 +89,15 @@ const fetchInscription = async (
     API_URL + `/address/${walletAddress}/ordinals/inscriptions/${inscriptionId}`
   );
 
-  // TODO: Fetch content here
-  return response.json();
+  const inscription = await response.json();
+
+  const contentResponse = await fetch(getContentUrl(inscription.id));
+
+  if (!String(inscription.content_type).startsWith("image/")) {
+    inscription.content = await contentResponse.json();
+  }
+
+  return inscription;
 };
 
 export const useInscription = (walletAddress: string, inscriptionId: string) =>

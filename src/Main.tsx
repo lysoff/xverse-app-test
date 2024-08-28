@@ -1,15 +1,18 @@
 import React, { ChangeEvent, useState } from "react";
 import InscriptionList from "./InscriptionList";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function Main() {
-  const [walletAddress, setWalletAddress] = useState("");
+  const navigate = useNavigate();
+  const { walletAddress } = useParams();
+
   const [form, setForm] = useState({ address: "" });
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setForm({ address: e.target.value });
   };
 
   const handleLookUp = () => {
-    setWalletAddress(form.address);
+    navigate(form.address);
   };
 
   return (

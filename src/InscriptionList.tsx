@@ -31,7 +31,7 @@ export default function InscriptionList({
 
               return (
                 <div key={inscriptionId}>
-                  <Link to={`${walletAddress}/${inscriptionId}`}>
+                  <Link to={`/${walletAddress}/${inscriptionId}`}>
                     Inscription {inscriptionId}
                   </Link>
                 </div>

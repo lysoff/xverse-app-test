@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
-import { useInscription } from "./api/api";
+import { getContentUrl, useInscription } from "./api/api";
 
 export default function Details() {
   const { walletAddress = "", inscriptionId = "" } = useParams();
@@ -13,11 +13,17 @@ export default function Details() {
   return (
     <div>
       <div>
-        <Link to="/">Go back</Link>
+        <Link to={`/${walletAddress}`}>Go back</Link>
         <span>Details</span>
       </div>
       <div>
-        <div>Content HERE</div>
+        <div>
+          {data.content_type.startsWith("image/") ? (
+            <img src={getContentUrl(data.id)} alt="" />
+          ) : (
+            <div>{data.content}</div>
+          )}
+        </div>
         <div>
           <div>Inscription {data.value}</div>
           <hr />

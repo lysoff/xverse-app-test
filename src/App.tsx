@@ -13,6 +13,10 @@ const router = createBrowserRouter([
     element: <Main />,
   },
   {
+    path: "/:walletAddress",
+    element: <Main />,
+  },
+  {
     path: "/:walletAddress/:inscriptionId",
     element: <Details />,
   },
