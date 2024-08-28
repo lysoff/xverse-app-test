@@ -19,7 +19,7 @@ export default function InscriptionList({
   console.log({ data });
 
   return (
-    <div>
+    <div className="w-full my-5 p-[16px]">
       <div>Results</div>
       <div>
         {data.pages.map((page, index) => (
@@ -30,9 +30,12 @@ export default function InscriptionList({
               if (!inscriptionId) return null;
 
               return (
-                <div key={inscriptionId}>
+                <div className="py-[24px]" key={inscriptionId}>
                   <Link to={`/${walletAddress}/${inscriptionId}`}>
-                    Inscription {inscriptionId}
+                    <div className="w-full flex flex-row ">
+                      <span>Inscription {inscriptionId.slice(0, 8)}</span>
+                      <img src="./assets/arrow.png" alt="" />
+                    </div>
                   </Link>
                 </div>
               );
@@ -41,6 +44,7 @@ export default function InscriptionList({
         ))}
         <div>
           <button
+            className="w-full rounded-lg p-[12px] my-2 bg-blue-500 disabled:bg-gray-400"
             onClick={() => fetchNextPage()}
             disabled={!hasNextPage || isFetchingNextPage}
           >
