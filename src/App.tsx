@@ -13,7 +13,11 @@ const router = createBrowserRouter([
     element: <Main />,
   },
   {
-    path: "/:ordinalId",
+    path: "/:address",
+    element: <Main />,
+  },
+  {
+    path: "/:address/:ordinalId",
     element: <Details />,
   },
 ]);

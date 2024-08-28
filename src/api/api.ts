@@ -62,7 +62,7 @@ const fetchWalletOrdinals = async (walletAddress: string, offset: number) => {
 };
 
 export const useWalletOrdinals = (walletAddress: string, offset: number = 0) =>
-  useQuery({
+  useQuery<WalletOrdinalsResponse>({
     queryKey: ["wallet", { walletAddress, offset }],
     queryFn: () => fetchWalletOrdinals(walletAddress, offset),
   });
