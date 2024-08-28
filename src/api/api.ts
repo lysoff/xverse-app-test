@@ -28,7 +28,7 @@ export interface WalletOrdinalsResponse {
   ];
 }
 
-export interface OrdinalResponse {
+export interface InscriptionResponse {
   id: string;
   number: number;
   address: string;
@@ -89,7 +89,7 @@ const fetchInscription = async (
 };
 
 export const useInscription = (walletAddress: string, inscriptionId: string) =>
-  useQuery({
+  useQuery<InscriptionResponse>({
     queryKey: ["wallet", "inscription", { walletAddress, inscriptionId }],
     queryFn: () => fetchInscription(walletAddress, inscriptionId),
   });
